@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Shield, Key, Eye, Database, CloudLock, FileCheck, AlertTriangle } from 'lucide-react';
+import { Lock, Shield, Key, Eye, Database, Cloud, FileCheck, AlertTriangle } from 'lucide-react';
 
 export const SegurancaView: React.FC = () => {
   return (
@@ -37,7 +37,7 @@ export const SegurancaView: React.FC = () => {
               <span className="text-slate-600"><strong>Backup:</strong> Cópias de segurança regulares</span>
             </li>
             <li className="flex items-start gap-3">
-              <CloudLock className="text-green-600 mt-1 flex-shrink-0" size={20} />
+              <Cloud className="text-green-600 mt-1 flex-shrink-0" size={20} />
               <span className="text-slate-600"><strong>Infraestrutura Segura:</strong> Ambientes protegidos e atualizados</span>
             </li>
           </ul>

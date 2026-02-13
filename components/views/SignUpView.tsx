@@ -10,7 +10,13 @@ export const SignUpView: React.FC = () => {
           <p className="text-sm text-slate-500 mt-2">Cadastre-se para acessar a LGPD Implementada.</p>
         </div>
         <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-4 sm:p-6">
-          <SignUp routing="path" path="/sign-up" signInUrl="/sign-in" />
+          <SignUp
+            routing="path"
+            path="/sign-up"
+            signInUrl="/sign-in"
+            fallbackRedirectUrl="/"
+            forceRedirectUrl="/"
+          />
         </div>
       </div>
     </div>

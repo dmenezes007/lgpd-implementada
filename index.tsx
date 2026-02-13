@@ -20,7 +20,33 @@ const ClerkProviderWithRouter: React.FC = () => {
   }
 
   return (
-    <ClerkProvider publishableKey={publishableKey} navigate={(to) => navigate(to)}>
+    <ClerkProvider
+      publishableKey={publishableKey}
+      navigate={(to) => navigate(to)}
+      appearance={{
+        variables: {
+          colorPrimary: '#4f46e5',
+          colorText: '#0f172a',
+          colorTextSecondary: '#475569',
+          colorBackground: '#f8fafc',
+          colorInputBackground: '#ffffff',
+          colorInputText: '#0f172a',
+          colorSuccess: '#16a34a',
+          colorDanger: '#dc2626',
+          borderRadius: '16px',
+          fontFamily: 'inherit',
+        },
+        elements: {
+          card: 'rounded-3xl shadow-sm border border-slate-200',
+          headerTitle: 'text-slate-900 font-extrabold',
+          headerSubtitle: 'text-slate-500',
+          socialButtonsBlockButton: 'rounded-2xl border-slate-200 hover:bg-slate-50',
+          formButtonPrimary: 'bg-indigo-600 hover:bg-indigo-700',
+          formFieldInput: 'rounded-2xl border-slate-200 focus:ring-indigo-500',
+          footerActionLink: 'text-indigo-600 hover:text-indigo-700',
+        },
+      }}
+    >
       <App />
     </ClerkProvider>
   );

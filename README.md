@@ -65,12 +65,27 @@ cd lgpd-implementada
 npm install
 ```
 
-3. **Execute em modo desenvolvimento**
+3. **Configure autenticação segura (backend)**
+
+Crie o arquivo `.env` com:
+
+```env
+AUTH_PASSWORD_HASH=seu_hash_bcrypt
+AUTH_SESSION_SECRET=um_segredo_longo_e_aleatorio
+```
+
+Para gerar o hash da senha:
+
+```bash
+node -e "const bcrypt=require('bcryptjs'); bcrypt.hash('SUA_SENHA_FORTE', 12).then(console.log)"
+```
+
+4. **Execute em modo desenvolvimento**
 ```bash
 npm run dev
 ```
 
-4. **Acesse no navegador**
+5. **Acesse no navegador**
 ```
 http://localhost:5173
 ```
@@ -172,6 +187,17 @@ A LGPD exige medidas técnicas e administrativas:
 - **Monitoramento** - Logs e auditoria
 - **Backup** - Cópias de segurança
 - **Infraestrutura Segura** - Ambientes protegidos
+
+### Autenticação de Acesso
+
+O acesso do sistema utiliza validação de senha no backend com:
+
+- Hash de senha com `bcrypt`
+- Sessão assinada via HMAC
+- Cookie `HttpOnly` com `SameSite=Strict`
+- Validação de sessão em `/api/auth/session`
+
+> Importante: a senha não fica no frontend e não deve ser armazenada em variáveis `VITE_*`.
 
 ---
 

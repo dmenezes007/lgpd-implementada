@@ -10,7 +10,7 @@ import { ComplianceView } from './components/views/ComplianceView';
 import { IncidentesView } from './components/views/IncidentesView';
 import { SignInView } from './components/views/SignInView';
 
-const CORRECT_PASSWORD = 'PGI_INPI_2025';
+type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated';
 
 interface ProtectedLayoutProps {
   onLogout: () => void;
@@ -37,31 +37,68 @@ const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({ onLogout }) => {
 };
 
 const App: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authStatus, setAuthStatus] = useState<AuthStatus>('checking');
 
   useEffect(() => {
-    const storedAuth = sessionStorage.getItem('isAuthenticated');
-    if (storedAuth === 'true') {
-      setIsAuthenticated(true);
-    }
+    const verifySession = async (): Promise<void> => {
+      try {
+        const response = await fetch('/api/auth/session', {
+          method: 'GET',
+          credentials: 'same-origin',
+        });
+
+        setAuthStatus(response.ok ? 'authenticated' : 'unauthenticated');
+      } catch {
+        setAuthStatus('unauthenticated');
+      }
+    };
+
+    void verifySession();
   }, []);
 
-  const handleLogin = (password: string): void => {
-    if (password === CORRECT_PASSWORD) {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('isAuthenticated', 'true');
-      return;
+  const handleLogin = async (password: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ password }),
+      });
+
+      if (response.ok) {
+        setAuthStatus('authenticated');
+        return { success: true };
+      }
+
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+      return { success: false, error: payload?.error ?? 'Falha no login' };
+    } catch {
+      return { success: false, error: 'Não foi possível conectar ao servidor de autenticação' };
     }
-
-    alert('Senha incorreta');
   };
 
-  const handleLogout = (): void => {
-    sessionStorage.removeItem('isAuthenticated');
-    setIsAuthenticated(false);
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'same-origin',
+      });
+    } finally {
+      setAuthStatus('unauthenticated');
+    }
   };
 
-  if (!isAuthenticated) {
+  if (authStatus === 'checking') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+        <p className="text-slate-600">Verificando acesso...</p>
+      </div>
+    );
+  }
+
+  if (authStatus !== 'authenticated') {
     return (
       <Routes>
         <Route path="/sign-in" element={<SignInView onLogin={handleLogin} />} />

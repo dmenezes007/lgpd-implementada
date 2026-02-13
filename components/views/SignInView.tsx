@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 
 interface SignInViewProps {
-  onLogin: (password: string) => void;
+  onLogin: (password: string) => Promise<{ success: boolean; error?: string }>;
 }
 
 export const SignInView: React.FC<SignInViewProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (event: React.FormEvent): void => {
+  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    onLogin(password);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const result = await onLogin(password);
+
+    if (!result.success) {
+      setErrorMessage(result.error ?? 'Senha incorreta');
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -40,10 +51,15 @@ export const SignInView: React.FC<SignInViewProps> = ({ onLogin }) => {
 
             <button
               type="submit"
-              className="w-full rounded-2xl bg-indigo-600 text-white font-semibold px-4 py-3 hover:bg-indigo-700 transition-colors"
+              disabled={isSubmitting}
+              className="w-full rounded-2xl bg-indigo-600 text-white font-semibold px-4 py-3 hover:bg-indigo-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Acessar
+              {isSubmitting ? 'Validando...' : 'Acessar'}
             </button>
+
+            {errorMessage && (
+              <p className="text-sm text-red-600">{errorMessage}</p>
+            )}
           </form>
         </div>
       </div>

@@ -27,6 +27,11 @@ export const SignInView: React.FC<SignInViewProps> = ({ onLogin }) => {
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-6 text-center">
+          <img
+            src="/assets/logo.png"
+            alt="Logo LGPD Implementada"
+            className="h-20 w-auto mx-auto mb-4"
+          />
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Bem-vindo de volta</h1>
           <p className="text-sm text-slate-500 mt-2">Entre para acessar a LGPD Implementada.</p>
         </div>

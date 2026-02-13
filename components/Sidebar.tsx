@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { UserButton } from '@clerk/clerk-react';
-import { Home, Shield, Users, Lock, FileCheck, AlertTriangle } from 'lucide-react';
+import { Home, Shield, Users, Lock, FileCheck, AlertTriangle, LogOut } from 'lucide-react';
 
 interface NavItem {
   id: string;
@@ -10,7 +9,11 @@ interface NavItem {
   icon: React.ComponentType<{ size?: number; className?: string }>;
 }
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onLogout: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
   const navItems: NavItem[] = [
     { id: 'home', label: 'Home', to: '/', icon: Home },
     { id: 'principios', label: 'Princípios', to: '/principios', icon: Shield },
@@ -55,8 +58,15 @@ export const Sidebar: React.FC = () => {
         })}
       </nav>
 
-      <div className="p-4 md:p-6 border-t border-slate-200 flex justify-center md:justify-start">
-        <UserButton afterSignOutUrl="/sign-in" />
+      <div className="p-2 md:p-4 border-t border-slate-200">
+        <button
+          type="button"
+          onClick={onLogout}
+          className="w-full p-3 md:p-4 rounded-2xl flex items-center gap-3 text-slate-600 hover:bg-slate-100 transition-all"
+        >
+          <LogOut size={24} />
+          <span className="hidden md:inline font-medium">Sair</span>
+        </button>
       </div>
     </aside>
   );

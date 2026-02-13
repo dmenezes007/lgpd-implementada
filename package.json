@@ -23,8 +23,6 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.7.0",
-    "@clerk/localizations": "^2.7.0",
     "react": "^19.2.3",
     "lucide-react": "^0.562.0",
     "react-dom": "^19.2.3",

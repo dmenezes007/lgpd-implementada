@@ -26,14 +26,12 @@ export const SignInView: React.FC<SignInViewProps> = ({ onLogin }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="mb-6 text-center">
+        <div className="mb-5 sm:mb-6">
           <img
             src="/assets/logo.png"
             alt="Logo LGPD Implementada"
-            className="h-20 w-auto mx-auto mb-4"
+            className="w-full h-auto"
           />
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Bem-vindo de volta</h1>
-          <p className="text-sm text-slate-500 mt-2">Entre para acessar a LGPD Implementada.</p>
         </div>
         <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-6 sm:p-8">
           <form className="space-y-4" onSubmit={handleSubmit}>

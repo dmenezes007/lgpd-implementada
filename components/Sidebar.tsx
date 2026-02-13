@@ -27,11 +27,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
     <aside className="fixed left-0 top-0 h-screen w-20 md:w-64 bg-white border-r border-slate-200 transition-all duration-300 z-50 flex flex-col">
       {/* Logo */}
       <div className="p-4 md:p-6 border-b border-slate-200">
-        <div className="flex items-center justify-center md:justify-start gap-3">
+        <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3">
           <img
             src="/assets/logo.png"
             alt="Logo LGPD Implementada"
-            className="h-10 w-auto"
+            className="h-8 md:h-10 w-auto"
           />
           <h2 className="hidden md:block text-xl font-bold text-indigo-600">
             LGPD Implementada

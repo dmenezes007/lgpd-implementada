@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ClerkProvider } from '@clerk/clerk-react';
+import { ptBR } from '@clerk/localizations';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import App from './App';
 import './index.css';
@@ -23,6 +24,7 @@ const ClerkProviderWithRouter: React.FC = () => {
     <ClerkProvider
       publishableKey={publishableKey}
       navigate={(to) => navigate(to)}
+      localization={ptBR}
       appearance={{
         variables: {
           colorPrimary: '#4f46e5',

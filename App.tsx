@@ -10,7 +10,6 @@ import { SegurancaView } from './components/views/SegurancaView';
 import { ComplianceView } from './components/views/ComplianceView';
 import { IncidentesView } from './components/views/IncidentesView';
 import { SignInView } from './components/views/SignInView';
-import { SignUpView } from './components/views/SignUpView';
 
 const ProtectedLayout: React.FC = () => {
   return (
@@ -43,7 +42,6 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/sign-in/*" element={<SignInView />} />
-      <Route path="/sign-up/*" element={<SignUpView />} />
       <Route path="/" element={<ProtectedLayout />}>
         <Route index element={<HomeView />} />
         <Route path="principios" element={<PrincipiosView />} />

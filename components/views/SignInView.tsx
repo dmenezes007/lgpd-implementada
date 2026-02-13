@@ -13,7 +13,6 @@ export const SignInView: React.FC = () => {
           <SignIn
             routing="path"
             path="/sign-in"
-            signUpUrl="/sign-up"
             fallbackRedirectUrl="/"
             forceRedirectUrl="/"
           />
